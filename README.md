@@ -72,9 +72,10 @@ public interface MvpCallback {
      */
     void onComplete();
 }
+```
 Model 类
 Model 类中定了具体的网络请求操作。为模拟真实的网络请求，利用postDelayed方法模拟耗时操作，通过判断请求参数反馈不同的请求状态：
-
+```
 public class MvpModel {
     /**
      * 获取网络接口数据
@@ -102,9 +103,10 @@ public class MvpModel {
         },2000);
     }
 }
+```
 View 接口
 View接口是Activity与Presenter层的中间层，它的作用是根据具体业务的需要，为Presenter提供调用Activity中具体UI逻辑操作的方法。
-
+```
 public interface MvpView {
     /**
      * 显示正在加载进度框
@@ -129,11 +131,12 @@ public interface MvpView {
      */
     void showErrorMessage();
 }
+```
 Presenter类
 Presenter类是具体的逻辑业务处理类，该类为纯Java类，不包含任何Android API，负责请求数据，并对数据请求的反馈进行处理。
 
 Presenter类的构造方法中有一个View接口的参数，是为了能够通过View接口通知Activity进行更新界面等操作。
-
+```
 public class MvpPresenter {
     // View接口
     private MvpView mView;
