@@ -268,5 +268,4 @@ public class MainActivity extends AppCompatActivity implements MvpView  {
     }
 }
 至此，已经完整的实现了一个简易的MVP架构。
-
 注意！以上代码中还存在很大的问题，不能用到实际开发中，下面会讨论目前存在的问题以及如何优化。
