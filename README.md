@@ -1,17 +1,17 @@
 # Android_MVPDemo
 参照http://www.jcodecraeer.com/a/anzhuokaifa/2017/1020/8625.html?1508484926,进行MVP项目实践
-为什么用MVP架构
+### 为什么用MVP架构
 其实我们日常开发中的Activity，Fragment和XML界面就相当于是一个 MVC 的架构模式，Activity中不仅要处理各种 UI 操作还要请求数据以及解析。
 
 这种开发方式的缺点就是业务量大的时候一个Activity 文件分分钟飙到上千行代码，想要改一处业务逻辑光是去找就要费半天劲，而且有点地方逻辑处理是一样的无奈是不同的 Activity 就没办法很好的写成通用方法。
 
-那 MVP 为啥好用呢？
+### 那 MVP 为啥好用呢？
 
 MVP 模式将Activity 中的业务逻辑全部分离出来，让Activity 只做 UI 逻辑的处理，所有跟Android API无关的业务逻辑由 Presenter 层来完成。
 
 将业务处理分离出来后最明显的好处就是管理方便，但是缺点就是增加了代码量。
 
-MVP 理论知识
+### MVP 理论知识
 在MVP 架构中跟MVC类似的是同样也分为三层。
 
 Activity 和Fragment 视为View层，负责处理 UI。
@@ -24,7 +24,7 @@ Model 层中包含着具体的数据请求，数据源。
 
 那Model 层如何反馈给Presenter 层的呢？Presenter 又是如何操控View 层呢？看图！
 
-MVP架构调用关系
+### MVP架构调用关系
 
 上图中说明了低层的不会直接给上一层做反馈，而是通过 View 、 Callback 为上级做出了反馈，这样就解决了请求数据与更新界面的异步操作。上图中 View 和 Callback 都是以接口的形式存在的，其中 View 是经典 MVP 架构中定义的，Callback 是我自己加的。
 
@@ -49,7 +49,7 @@ Java文件目录
 
 Callback接口
 Callback 接口是Model层给Presenter层反馈请求信息的传递载体，所以需要在Callback中定义数据请求的各种反馈状态：
-
+```
 public interface MvpCallback {
    /**
      * 数据请求成功
@@ -172,9 +172,10 @@ public class MvpPresenter {
         });
     }
 }
+```
 xml布局文件
 没什么好说的，直接上代码：
-
+```
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -208,9 +209,10 @@ xml布局文件
         android:onClick="getDataForError"
         />
 </LinearLayout>
+```
 Activity
 在Activity代码中需要强调的是如果想要调用Presenter就要先实现Presenter需要的对应的View接口。
-
+```
 public class MainActivity extends AppCompatActivity implements MvpView  {
     //进度条
     ProgressDialog progressDialog;
@@ -267,5 +269,6 @@ public class MainActivity extends AppCompatActivity implements MvpView  {
         text.setText("网络请求数据出现异常");
     }
 }
+```
 至此，已经完整的实现了一个简易的MVP架构。
 注意！以上代码中还存在很大的问题，不能用到实际开发中，下面会讨论目前存在的问题以及如何优化。
